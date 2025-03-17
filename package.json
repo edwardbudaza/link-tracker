@@ -1,13 +1,26 @@
 {
   "name": "link-tracker",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Node.js backend for tracking link clicks from HTML pages and emails",
+  "main": "dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint --ext .ts src/",
+    "lint:fix": "eslint --ext .ts src/ --fix"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "link-tracking",
+    "url-shortener",
+    "express",
+    "typescript",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "Edward Budaza",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -50,5 +63,15 @@
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.spec.ts"
+    ]
   }
 }
