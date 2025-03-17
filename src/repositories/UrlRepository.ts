@@ -3,7 +3,7 @@ import UrlModel, { Url } from "../models/Url";
 import { injectable } from "inversify";
 
 @injectable()
-export class UrlRespository implements IUrlRepository {
+export class UrlRepository implements IUrlRepository {
   async create(url: Partial<Url>): Promise<Url> {
     const newUrl = new UrlModel(url);
     return await newUrl.save();
