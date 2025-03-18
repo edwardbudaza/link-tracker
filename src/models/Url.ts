@@ -21,7 +21,7 @@ const UrlSchema = new Schema<Url>(
     shortId: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       trim: true,
     },
     customSlug: {

@@ -37,7 +37,10 @@ export class HtmlProcessorService implements IHtmlProcessorService {
     }
   }
 
-  async processHtml(html: string, baseUrl?: string): Promise<string> {
+  async processHtml(
+    html: string,
+    baseUrl: string = APP_CONFIG.baseUrl
+  ): Promise<string> {
     try {
       const dom = new JSDOM(html);
       const document = dom.window.document;
@@ -76,7 +79,7 @@ export class HtmlProcessorService implements IHtmlProcessorService {
 
       return dom.serialize();
     } catch (error) {
-      this.logger.error("Error processing HTML ", error as Error);
+      this.logger.error("Error processing HTML", error as Error);
       throw error;
     }
   }

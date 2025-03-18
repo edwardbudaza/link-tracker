@@ -9,7 +9,7 @@ import { TYPES } from "../di/types";
 export class UrlController {
   constructor(
     @inject(TYPES.UrlShortenerService)
-    private urlShortnerService: IUrlShortenerService,
+    private urlShortenerService: IUrlShortenerService,
     @inject(TYPES.HtmlProcessorService)
     private htmlProcessorService: IHtmlProcessorService,
     @inject(TYPES.LoggingService) private logger: ILoggingService
@@ -24,7 +24,7 @@ export class UrlController {
         return;
       }
 
-      const shortenedUrl = await this.urlShortnerService.shortenUrl(
+      const shortenedUrl = await this.urlShortenerService.shortenUrl(
         url,
         customSlug
       );
@@ -41,9 +41,9 @@ export class UrlController {
     } catch (error: any) {
       this.logger.error("Error shortening URL", error);
       res
-        .status(error.message === "Custom slug already in user" ? 409 : 500)
+        .status(error.message === "Custom slug already in use" ? 409 : 500)
         .json({
-          error: error.message || "An error occured while shortening the URL",
+          error: error.message || "An error occurred while shortening the URL",
         });
     }
   };
@@ -62,14 +62,12 @@ export class UrlController {
         baseUrl || `${req.protocol}://${req.get("host")}`
       );
 
-      res
-        .status(200)
-        .json({
-          processedHtml,
-          originalLinks: this.htmlProcessorService.extractUrls(html).length,
-          processedLinks:
-            this.htmlProcessorService.extractUrls(processedHtml).length,
-        });
+      res.status(200).json({
+        processedHtml,
+        originalLinks: this.htmlProcessorService.extractUrls(html).length,
+        processedLinks:
+          this.htmlProcessorService.extractUrls(processedHtml).length,
+      });
     } catch (error: any) {
       this.logger.error("Error processing HTML", error);
       res.status(500).json({

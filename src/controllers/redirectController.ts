@@ -8,17 +8,17 @@ import { TYPES } from "../di/types";
 export class RedirectController {
   constructor(
     @inject(TYPES.RedirectionService)
-    private redireciontService: IRedirectionService,
+    private redirectionService: IRedirectionService,
     @inject(TYPES.LoggingService) private logger: ILoggingService
   ) {}
 
   redirect = async (req: Request, res: Response): Promise<void> => {
     try {
-      await this.redireciontService.redirect(req, res);
+      await this.redirectionService.redirect(req, res);
     } catch (error: any) {
       this.logger.error("Redirection controller error", error);
       res.status(500).json({
-        error: error.message || "An error occured during redirection",
+        error: error.message || "An error occurred during redirection",
       });
     }
   };
